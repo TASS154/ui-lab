@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOLTEN — Vidro em movimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+    <div class="heat-haze"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="logo" href="#top">MOLTEN</a>
+    <nav>
+      <a href="#craft">Ofício</a>
+      <a href="#pieces">Peças</a>
+      <a href="#atelier">Atelier</a>
+    </nav>
+    <a class="nav-cta" href="#visit">Visitar</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1 class="brand">MOLTEN</h1>
+        <p class="headline">Vidro que ainda respira calor.</p>
+        <p class="lede">Formas líquidas, luz refratada e superfícies que escorrem como metal em fogo — um atelier digital de molten glass.</p>
+        <div class="cta-row">
+          <a class="btn-glass" href="#pieces">Ver a coleção</a>
+          <a class="btn-text" href="#craft">Como forjamos</a>
+        </div>
+      </div>
+
+      <div class="hero-glass" aria-hidden="true">
+        <div class="pane pane-1">
+          <span class="sheen"></span>
+        </div>
+        <div class="pane pane-2">
+          <span class="sheen"></span>
+        </div>
+        <div class="pane pane-3">
+          <span class="sheen"></span>
+        </div>
+        <div class="liquid-orb">
+          <span class="orb-core"></span>
+          <span class="orb-rim"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="craft" id="craft">
+      <p class="section-label">Ofício</p>
+      <h2>Calor, sopro e refratação.</h2>
+      <p class="section-lede">Cada painel nasce de camadas translúcidas, bordas quentes e movimento lento — como vidro saindo do forno.</p>
+
+      <div class="craft-grid">
+        <article class="glass-tile">
+          <h3>Fusão</h3>
+          <p>Âmbar e teal se misturam em gradientes vivos, nunca planos.</p>
+        </article>
+        <article class="glass-tile">
+          <h3>Sopro</h3>
+          <p>Curvas orgânicas e blur suave imitam o ar preso no vidro.</p>
+        </article>
+        <article class="glass-tile">
+          <h3>Polimento</h3>
+          <p>Reflexos que deslizam com o cursor, como luz no forno.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="pieces" id="pieces">
+      <p class="section-label">Peças</p>
+      <h2>Três temperaturas.</h2>
+      <p class="section-lede">Uma família visual em estados diferentes do mesmo material.</p>
+
+      <div class="temp-strip" role="list">
+        <figure class="temp" data-temp="820°" role="listitem">
+          <div class="temp-glass t-hot"></div>
+          <figcaption>
+            <strong>Incandescência</strong>
+            <span>Âmbar vivo, quase fluido</span>
+          </figcaption>
+        </figure>
+        <figure class="temp" data-temp="610°" role="listitem">
+          <div class="temp-glass t-warm"></div>
+          <figcaption>
+            <strong>Formação</strong>
+            <span>Coral e ouro em transição</span>
+          </figcaption>
+        </figure>
+        <figure class="temp" data-temp="290°" role="listitem">
+          <div class="temp-glass t-cool"></div>
+          <figcaption>
+            <strong>Resfriamento</strong>
+            <span>Sea glass, ainda translúcido</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="atelier" id="atelier">
+      <div class="atelier-glass">
+        <p class="section-label">Atelier</p>
+        <h2>UI que derrete sob a luz.</h2>
+        <p>Painéis foscos, bordas luminosas e motion lento. Mova o ponteiro e veja o vidro acompanhar o calor.</p>
+        <form class="glass-form" id="visit">
+          <label>
+            Nome
+            <input type="text" name="name" placeholder="Seu nome" autocomplete="name" />
+          </label>
+          <label>
+            E-mail
+            <input type="email" name="email" placeholder="voce@atelier.com" autocomplete="email" />
+          </label>
+          <button type="submit" class="btn-glass">Agendar visita</button>
+        </form>
+        <p class="form-note" id="form-note" hidden>Recebemos seu interesse — o forno está aquecido.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="logo">MOLTEN</span>
+    <p>Vidro líquido para interfaces que ainda estão quentes.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
