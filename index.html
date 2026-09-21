@@ -3,171 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UI Lab — playground de estilos e mesclas de interface com troca animada." />
   <title>UI Lab — Seletor de estilos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;600;700;800&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="themes.css" />
 </head>
 <body>
   <div class="app">
-    <aside class="picker" id="picker">
+    <aside class="picker" id="picker" aria-label="Seletor de estilos">
       <div class="picker-head">
         <span class="picker-brand">UI Lab</span>
         <button type="button" class="picker-close" id="picker-close" aria-label="Fechar seletor">×</button>
       </div>
-      <p class="picker-hint">Escolha um estilo puro ou uma mescla. O preview muda ao vivo.</p>
+      <p class="picker-hint">Puros e mesclas. A troca desmonta e remonta a UI — interruptível, sem snap.</p>
+
+      <label class="picker-search">
+        <span class="visually-hidden">Filtrar estilos</span>
+        <input type="search" id="theme-filter" placeholder="Filtrar…" autocomplete="off" />
+      </label>
 
       <div class="picker-group">
-        <h2>Puros</h2>
+        <h2>Puros <span class="picker-count" id="pure-count">0</span></h2>
         <div class="swatch-list" role="listbox" aria-label="Estilos puros" id="pure-list"></div>
       </div>
 
       <div class="picker-group">
-        <h2>Mesclas</h2>
+        <h2>Mesclas <span class="picker-count" id="mix-count">0</span></h2>
         <div class="swatch-list" role="listbox" aria-label="Mesclas" id="mix-list"></div>
       </div>
+
+      <p class="picker-empty" id="picker-empty" hidden>Nenhum estilo com esse filtro.</p>
     </aside>
 
     <div class="stage">
       <header class="chrome">
-        <button type="button" class="chrome-menu" id="picker-open" aria-label="Abrir seletor">Estilos</button>
+        <button type="button" class="chrome-menu" id="picker-open" aria-expanded="false" aria-controls="picker">Estilos</button>
         <div class="chrome-meta">
           <span class="chrome-label" id="theme-label">Molten Glass</span>
           <span class="chrome-tags" id="theme-tags">Glassmorphism</span>
         </div>
+        <p class="visually-hidden" id="theme-live" aria-live="polite"></p>
         <button type="button" class="chrome-random" id="random-theme">Surpresa</button>
       </header>
 
       <div class="morph-root" id="morph-root">
-      <div class="atmosphere" aria-hidden="true">
-        <div class="blob blob-a"></div>
-        <div class="blob blob-b"></div>
-        <div class="blob blob-c"></div>
-        <div class="grid-fx"></div>
-        <div class="aero-shine"></div>
-      </div>
+        <div class="atmosphere" aria-hidden="true">
+          <div class="blob blob-a"></div>
+          <div class="blob blob-b"></div>
+          <div class="blob blob-c"></div>
+          <div class="grid-fx"></div>
+          <div class="aero-shine"></div>
+          <div class="scanlines"></div>
+        </div>
 
-      <main class="preview" id="preview">
-        <nav class="ui-nav">
-          <a class="ui-logo" href="#hero">Studio</a>
-          <div class="ui-links">
-            <a href="#features">Features</a>
-            <a href="#bento">Layout</a>
-            <a href="#cta">Contato</a>
-          </div>
-          <button type="button" class="ui-btn ui-btn-sm">Entrar</button>
-        </nav>
-
-        <section class="ui-hero" id="hero">
-          <div class="ui-hero-copy">
-            <p class="ui-eyebrow" id="hero-eyebrow">Design system playground</p>
-            <h1 id="hero-title">Uma interface, muitos temperamentos.</h1>
-            <p class="ui-lede" id="hero-lede">Troque o seletor e veja tipografia, profundidade, cor e ritmo mudarem — do vidro líquido ao neobrutalismo.</p>
-            <div class="ui-actions">
-              <button type="button" class="ui-btn ui-btn-primary">Começar agora</button>
-              <button type="button" class="ui-btn ui-btn-ghost">Ver docs</button>
+        <main class="preview" id="preview">
+          <nav class="ui-nav">
+            <a class="ui-logo" href="#hero">Studio</a>
+            <div class="ui-links">
+              <a href="#features">Features</a>
+              <a href="#bento">Layout</a>
+              <a href="#cta">Contato</a>
             </div>
-          </div>
-          <div class="ui-hero-visual" aria-hidden="true">
-            <div class="visual-stack">
-              <div class="visual-pane p1"></div>
-              <div class="visual-pane p2"></div>
-              <div class="visual-pane p3"></div>
-              <div class="visual-orb"></div>
+            <button type="button" class="ui-btn ui-btn-sm">Entrar</button>
+          </nav>
+
+          <section class="ui-hero" id="hero">
+            <div class="ui-hero-copy">
+              <p class="ui-eyebrow" id="hero-eyebrow">Design system playground</p>
+              <h1 id="hero-title">Uma interface, muitos temperamentos.</h1>
+              <p class="ui-lede" id="hero-lede">Troque o seletor e veja tipografia, profundidade, cor e ritmo mudarem.</p>
+              <div class="ui-actions">
+                <button type="button" class="ui-btn ui-btn-primary">Começar agora</button>
+                <button type="button" class="ui-btn ui-btn-ghost">Ver docs</button>
+              </div>
             </div>
-          </div>
-        </section>
+            <div class="ui-hero-visual" aria-hidden="true">
+              <div class="visual-stack">
+                <div class="visual-pane p1"></div>
+                <div class="visual-pane p2"></div>
+                <div class="visual-pane p3"></div>
+                <div class="visual-orb"></div>
+              </div>
+            </div>
+          </section>
 
-        <section class="ui-stats">
-          <div class="stat"><strong>12</strong><span>temas</span></div>
-          <div class="stat"><strong>7</strong><span>mesclas</span></div>
-          <div class="stat"><strong>∞</strong><span>combinações</span></div>
-        </section>
+          <section class="ui-stats" aria-label="Inventário de estilos">
+            <div class="stat"><strong id="stat-pures">—</strong><span>puros</span></div>
+            <div class="stat"><strong id="stat-mixes">—</strong><span>mesclas</span></div>
+            <div class="stat"><strong id="stat-total">—</strong><span>total</span></div>
+          </section>
 
-        <section class="ui-features" id="features">
-          <header class="ui-section-head">
-            <h2>Componentes vivos</h2>
-            <p>Cards, botões e formulários herdam o DNA do tema ativo.</p>
-          </header>
-          <div class="feature-grid">
-            <article class="ui-card">
-              <div class="ui-card-icon" aria-hidden="true">◐</div>
-              <h3>Profundidade</h3>
-              <p>Sombras, blur e relevo mudam conforme o estilo escolhido.</p>
-            </article>
-            <article class="ui-card">
-              <div class="ui-card-icon" aria-hidden="true">◈</div>
-              <h3>Tipografia</h3>
-              <p>Cada tema traz sua própria voz tipográfica e escala.</p>
-            </article>
-            <article class="ui-card">
-              <div class="ui-card-icon" aria-hidden="true">◉</div>
-              <h3>Cor & luz</h3>
-              <p>Paletas quentes, frias, flat ou metálicas sob demanda.</p>
-            </article>
-          </div>
-        </section>
+          <section class="ui-features" id="features">
+            <header class="ui-section-head">
+              <h2>Componentes vivos</h2>
+              <p>Cards, botões e formulários herdam o DNA do tema ativo.</p>
+            </header>
+            <div class="feature-grid">
+              <article class="ui-card">
+                <div class="ui-card-icon" aria-hidden="true">◐</div>
+                <h3>Profundidade</h3>
+                <p>Sombras, blur e relevo mudam conforme o estilo escolhido.</p>
+              </article>
+              <article class="ui-card">
+                <div class="ui-card-icon" aria-hidden="true">◈</div>
+                <h3>Tipografia</h3>
+                <p>Cada tema traz sua própria voz tipográfica e escala.</p>
+              </article>
+              <article class="ui-card">
+                <div class="ui-card-icon" aria-hidden="true">◉</div>
+                <h3>Cor & luz</h3>
+                <p>Paletas quentes, frias, flat ou metálicas sob demanda.</p>
+              </article>
+            </div>
+          </section>
 
-        <section class="ui-bento" id="bento">
-          <header class="ui-section-head">
-            <h2>Bento & painéis</h2>
-            <p>Grade assimétrica para testar densidade e hierarquia.</p>
-          </header>
-          <div class="bento-grid">
-            <article class="bento-cell bento-wide">
-              <h3>Painel principal</h3>
-              <p>Espaço generoso para highlight — ideal em Linear/Bento e Enterprise.</p>
-              <div class="bento-meter"><span></span></div>
-            </article>
-            <article class="bento-cell">
-              <h3>Pulse</h3>
-              <p class="bento-metric">98%</p>
-            </article>
-            <article class="bento-cell">
-              <h3>Latência</h3>
-              <p class="bento-metric">12ms</p>
-            </article>
-            <article class="bento-cell bento-tall">
-              <h3>Stack</h3>
-              <ul class="bento-list">
-                <li>Tokens</li>
-                <li>Motion</li>
-                <li>Acesso</li>
-              </ul>
-            </article>
-          </div>
-        </section>
+          <section class="ui-bento" id="bento">
+            <header class="ui-section-head">
+              <h2>Bento & painéis</h2>
+              <p>Grade assimétrica para testar densidade e hierarquia.</p>
+            </header>
+            <div class="bento-grid">
+              <article class="bento-cell bento-wide">
+                <h3>Painel principal</h3>
+                <p>Espaço generoso para highlight — ideal em Linear/Bento e Enterprise.</p>
+                <div class="bento-meter"><span></span></div>
+              </article>
+              <article class="bento-cell">
+                <h3>Pulse</h3>
+                <p class="bento-metric">98%</p>
+              </article>
+              <article class="bento-cell">
+                <h3>Latência</h3>
+                <p class="bento-metric">12ms</p>
+              </article>
+              <article class="bento-cell bento-tall">
+                <h3>Stack</h3>
+                <ul class="bento-list">
+                  <li>Tokens</li>
+                  <li>Motion</li>
+                  <li>Acesso</li>
+                </ul>
+              </article>
+            </div>
+          </section>
 
-        <section class="ui-cta" id="cta">
-          <div class="ui-panel">
-            <h2>Teste o formulário neste skin</h2>
-            <p>Inputs e botões também mudam com o tema.</p>
-            <form class="ui-form" id="demo-form">
-              <label>
-                Nome
-                <input type="text" name="name" placeholder="Seu nome" autocomplete="name" />
-              </label>
-              <label>
-                E-mail
-                <input type="email" name="email" placeholder="voce@studio.dev" autocomplete="email" />
-              </label>
-              <button type="submit" class="ui-btn ui-btn-primary">Enviar</button>
-            </form>
-            <p class="form-ok" id="form-ok" hidden>Recebido — tema aplicado com sucesso.</p>
-          </div>
-        </section>
+          <section class="ui-cta" id="cta">
+            <div class="ui-panel">
+              <h2>Teste o formulário neste skin</h2>
+              <p>Inputs e botões também mudam com o tema.</p>
+              <form class="ui-form" id="demo-form">
+                <label>
+                  Nome
+                  <input type="text" name="name" placeholder="Seu nome" autocomplete="name" />
+                </label>
+                <label>
+                  E-mail
+                  <input type="email" name="email" placeholder="voce@studio.dev" autocomplete="email" />
+                </label>
+                <button type="submit" class="ui-btn ui-btn-primary">Enviar</button>
+              </form>
+              <p class="form-ok" id="form-ok" hidden>Recebido — tema aplicado com sucesso.</p>
+            </div>
+          </section>
 
-        <footer class="ui-footer">
-          <span>UI Lab</span>
-          <span id="footer-theme">Molten Glass</span>
-        </footer>
-      </main>
+          <footer class="ui-footer">
+            <span>UI Lab</span>
+            <span id="footer-theme">Molten Glass</span>
+          </footer>
+        </main>
       </div>
     </div>
   </div>
 
   <div class="picker-backdrop" id="picker-backdrop" hidden></div>
+  <script src="themes.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
