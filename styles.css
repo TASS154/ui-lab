@@ -207,6 +207,43 @@ input {
   text-overflow: ellipsis;
 }
 
+.morph-root {
+  --mount: 1;
+  --dismount: 0;
+  position: relative;
+  min-height: calc(100vh - 3.2rem);
+}
+
+.morph-root.is-morphing {
+  pointer-events: none;
+}
+
+.morph-root .atmosphere {
+  opacity: calc(0.25 + var(--mount) * 0.75);
+  transform: scale(calc(1.06 - var(--mount) * 0.06));
+  filter: blur(calc(var(--dismount) * 10px));
+  transition: none;
+}
+
+.morph-root .preview {
+  opacity: var(--mount);
+  filter: blur(calc(var(--dismount) * 16px));
+  transform:
+    translateY(calc(var(--dismount) * 28px))
+    scale(calc(0.92 + var(--mount) * 0.08));
+  transform-origin: 50% 12%;
+  will-change: transform, opacity, filter;
+}
+
+.morph-piece {
+  --i: 0;
+  transform:
+    translateY(calc(var(--dismount) * (10px + var(--i) * 3px)))
+    scale(calc(1 - var(--dismount) * 0.04));
+  opacity: calc(1 - var(--dismount) * 0.35);
+  will-change: transform, opacity;
+}
+
 .atmosphere {
   position: absolute;
   inset: 0;

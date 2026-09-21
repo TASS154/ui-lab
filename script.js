@@ -178,7 +178,13 @@
     },
   ];
 
+  const FULL_OUT_MS = 520;
+  const FULL_IN_MS = 620;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const html = document.documentElement;
+  const morphRoot = document.getElementById("morph-root");
+  const preview = document.getElementById("preview");
   const pureList = document.getElementById("pure-list");
   const mixList = document.getElementById("mix-list");
   const themeLabel = document.getElementById("theme-label");
@@ -189,6 +195,150 @@
   const heroLede = document.getElementById("hero-lede");
   const picker = document.getElementById("picker");
   const backdrop = document.getElementById("picker-backdrop");
+
+  const pieceSelectors = [
+    ".ui-nav",
+    ".ui-hero-copy",
+    ".ui-hero-visual",
+    ".ui-stats .stat",
+    ".ui-section-head",
+    ".ui-card",
+    ".bento-cell",
+    ".ui-panel",
+    ".ui-footer",
+  ];
+
+  preview.querySelectorAll(pieceSelectors.join(",")).forEach((el, i) => {
+    el.classList.add("morph-piece");
+    el.style.setProperty("--i", String(i % 12));
+  });
+
+  let mount = 1;
+  let raf = null;
+  let runId = 0;
+  let activeThemeId = null;
+  let pendingThemeId = null;
+
+  const easeInOut = (t) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  function paintMount(value) {
+    mount = value;
+    const dismount = 1 - value;
+    morphRoot.style.setProperty("--mount", value.toFixed(4));
+    morphRoot.style.setProperty("--dismount", dismount.toFixed(4));
+    morphRoot.classList.toggle("is-morphing", value < 0.995 && value > 0.005);
+  }
+
+  function findTheme(id) {
+    return THEMES.find((t) => t.id === id) || THEMES[0];
+  }
+
+  function updateChrome(theme) {
+    themeLabel.textContent = theme.name;
+    themeTags.textContent = theme.tags;
+    document.querySelectorAll(".swatch").forEach((el) => {
+      el.setAttribute("aria-selected", el.dataset.id === theme.id ? "true" : "false");
+    });
+  }
+
+  function commitTheme(theme) {
+    html.setAttribute("data-theme", theme.id);
+    footerTheme.textContent = theme.name;
+    heroEyebrow.textContent = theme.eyebrow;
+    heroTitle.textContent = theme.title;
+    heroLede.textContent = theme.lede;
+    activeThemeId = theme.id;
+  }
+
+  function tweenMount(target, myRun) {
+    return new Promise((resolve) => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+
+      const from = mount;
+      const delta = Math.abs(target - from);
+
+      if (delta < 0.001) {
+        paintMount(target);
+        resolve();
+        return;
+      }
+
+      const base = target < from ? FULL_OUT_MS : FULL_IN_MS;
+      const duration = Math.max(90, base * delta);
+      const t0 = performance.now();
+
+      const tick = (now) => {
+        if (myRun !== runId) {
+          resolve();
+          return;
+        }
+
+        const p = Math.min(1, (now - t0) / duration);
+        paintMount(from + (target - from) * easeInOut(p));
+
+        if (p < 1) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+          paintMount(target);
+          resolve();
+        }
+      };
+
+      raf = requestAnimationFrame(tick);
+    });
+  }
+
+  async function runCycle(myRun) {
+    morphRoot.classList.add("is-morphing");
+
+    await tweenMount(0, myRun);
+    if (myRun !== runId) return;
+
+    commitTheme(findTheme(pendingThemeId));
+
+    await tweenMount(1, myRun);
+    if (myRun !== runId) return;
+
+    morphRoot.classList.remove("is-morphing");
+  }
+
+  function requestTheme(id, { persist = true, instant = false } = {}) {
+    const theme = findTheme(id);
+    pendingThemeId = theme.id;
+    updateChrome(theme);
+
+    if (persist) {
+      try {
+        localStorage.setItem("ui-lab-theme", theme.id);
+      } catch (_) {}
+    }
+
+    closePicker();
+
+    if (instant || reduceMotion) {
+      runId += 1;
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+      commitTheme(theme);
+      paintMount(1);
+      morphRoot.classList.remove("is-morphing");
+      return;
+    }
+
+    if (theme.id === activeThemeId && mount > 0.995 && raf === null) {
+      return;
+    }
+
+    const myRun = ++runId;
+    runCycle(myRun);
+  }
 
   const makeSwatch = (theme) => {
     const btn = document.createElement("button");
@@ -204,36 +354,12 @@
         <span class="swatch-desc">${theme.desc}</span>
       </span>
     `;
-    btn.addEventListener("click", () => applyTheme(theme.id));
+    btn.addEventListener("click", () => requestTheme(theme.id));
     return btn;
   };
 
   THEMES.filter((t) => t.group === "pure").forEach((t) => pureList.appendChild(makeSwatch(t)));
   THEMES.filter((t) => t.group === "mix").forEach((t) => mixList.appendChild(makeSwatch(t)));
-
-  function applyTheme(id, { persist = true } = {}) {
-    const theme = THEMES.find((t) => t.id === id) || THEMES[0];
-    html.setAttribute("data-theme", theme.id);
-
-    themeLabel.textContent = theme.name;
-    themeTags.textContent = theme.tags;
-    footerTheme.textContent = theme.name;
-    heroEyebrow.textContent = theme.eyebrow;
-    heroTitle.textContent = theme.title;
-    heroLede.textContent = theme.lede;
-
-    document.querySelectorAll(".swatch").forEach((el) => {
-      el.setAttribute("aria-selected", el.dataset.id === theme.id ? "true" : "false");
-    });
-
-    if (persist) {
-      try {
-        localStorage.setItem("ui-lab-theme", theme.id);
-      } catch (_) {}
-    }
-
-    closePicker();
-  }
 
   function openPicker() {
     picker.classList.add("is-open");
@@ -250,14 +376,14 @@
   backdrop.addEventListener("click", closePicker);
 
   document.getElementById("random-theme").addEventListener("click", () => {
-    const current = html.getAttribute("data-theme");
+    const current = pendingThemeId || activeThemeId;
     let next = THEMES[Math.floor(Math.random() * THEMES.length)];
     let guard = 0;
     while (next.id === current && guard < 8) {
       next = THEMES[Math.floor(Math.random() * THEMES.length)];
       guard += 1;
     }
-    applyTheme(next.id);
+    requestTheme(next.id);
   });
 
   document.getElementById("demo-form").addEventListener("submit", (e) => {
@@ -272,5 +398,6 @@
     saved = localStorage.getItem("ui-lab-theme") || saved;
   } catch (_) {}
 
-  applyTheme(saved, { persist: false });
+  paintMount(1);
+  requestTheme(saved, { persist: false, instant: true });
 })();
