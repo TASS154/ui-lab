@@ -38,16 +38,23 @@
 
 [data-theme="molten-glass"] .atmosphere {
   background:
-    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(232, 154, 60, 0.55), transparent 55%),
-    radial-gradient(ellipse 60% 45% at 80% 20%, rgba(126, 212, 200, 0.4), transparent 50%),
-    radial-gradient(ellipse 50% 60% at 70% 80%, rgba(232, 106, 69, 0.35), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 18% 28%, #e89a3c 0%, transparent 58%),
+    radial-gradient(ellipse 55% 45% at 82% 18%, #4db8b0 0%, transparent 52%),
+    radial-gradient(ellipse 50% 55% at 72% 78%, #e86a45 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 40% 60%, #f0c15a 0%, transparent 50%),
     linear-gradient(165deg, #2a1c14, #1a1410 40%, #121a1a);
+}
+
+[data-theme="molten-glass"] .morph-root .atmosphere {
+  opacity: 1;
+  filter: none;
+  transform: none;
 }
 
 [data-theme="molten-glass"] .blob {
   display: block;
-  filter: blur(40px);
-  opacity: 0.7;
+  filter: none;
+  opacity: 0.9;
   border-radius: 60% 40% 55% 45%;
   animation: morph 14s ease-in-out infinite alternate;
 }

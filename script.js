@@ -42,7 +42,6 @@
     ".ui-stats .stat",
     ".ui-section-head",
     ".ui-card",
-    ".ui-play",
     ".bento-cell",
     ".ui-panel",
     ".ui-footer",
@@ -222,10 +221,18 @@
     btn.dataset.group = theme.group;
     btn.dataset.search = `${theme.name} ${theme.desc} ${theme.tags}`.toLowerCase();
     btn.setAttribute("aria-selected", "false");
+    const isNew = [
+      "glassmorphism",
+      "memphis",
+      "cyberpunk",
+      "molten-clay",
+      "cyber-glass",
+      "memphis-brutal",
+    ].includes(theme.id);
     btn.innerHTML = `
       <span class="swatch-chip" style="background:${theme.chip}" aria-hidden="true"></span>
       <span>
-        <span class="swatch-name">${theme.name}</span>
+        <span class="swatch-name">${theme.name}${isNew ? ' <em class="swatch-new">novo</em>' : ""}</span>
         <span class="swatch-desc">${theme.desc}</span>
       </span>
     `;

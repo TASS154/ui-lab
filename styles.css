@@ -203,6 +203,16 @@ input {
   font-weight: 500;
 }
 
+.swatch-new {
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7dd3a0;
+  margin-left: 0.35rem;
+}
+
 .swatch-desc {
   display: block;
   font-size: 0.68rem;
@@ -282,9 +292,10 @@ input {
 }
 
 .morph-root .atmosphere {
-  opacity: calc(0.25 + var(--mount) * 0.75);
-  transform: scale(calc(1.06 - var(--mount) * 0.06));
-  filter: blur(calc(var(--dismount) * 10px));
+  /* fundo nítido — blur só nos painéis (backdrop-filter) */
+  opacity: calc(0.55 + var(--mount) * 0.45);
+  transform: none;
+  filter: none;
   transition: none;
 }
 
@@ -651,9 +662,15 @@ input {
 .play-arena {
   position: relative;
   height: min(420px, 70vw);
+  min-height: 280px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg, var(--radius));
-  background: var(--surface);
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    var(--surface);
+  background-size: 32px 32px, 32px 32px, auto;
+  background-position: -1px -1px;
   box-shadow: var(--card-shadow);
   overflow: hidden;
   touch-action: none;
@@ -664,7 +681,7 @@ input {
   position: absolute;
   top: 0.85rem;
   left: 1rem;
-  z-index: 1;
+  z-index: 6;
   font-size: 0.75rem;
   color: var(--muted);
   pointer-events: none;
@@ -672,83 +689,78 @@ input {
 
 .play-obj {
   position: absolute;
+  left: 40px;
+  top: 80px;
+  z-index: 4;
   cursor: grab;
   touch-action: none;
-  will-change: transform;
+  transform-origin: center center;
   outline: none;
 }
 
 .play-obj:active,
 .play-obj.is-dragging {
   cursor: grabbing;
-  z-index: 5;
+  z-index: 8;
 }
 
 .play-obj::after {
   content: attr(data-label);
   position: absolute;
   left: 50%;
-  bottom: -1.4rem;
+  bottom: -1.35rem;
   transform: translateX(-50%);
   font-size: 0.65rem;
   color: var(--muted);
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.2s;
+  pointer-events: none;
 }
 
 .play-obj:hover::after,
-.play-obj:focus-visible::after {
+.play-obj:focus-visible::after,
+.play-obj.is-dragging::after {
   opacity: 1;
 }
 
 .shape-orb {
-  width: 88px;
-  height: 88px;
+  width: 92px;
+  height: 92px;
   border-radius: 50%;
-  left: 12%;
-  top: 28%;
-  background: var(--orb);
-  border: 1px solid var(--pane-border);
-  box-shadow: var(--orb-shadow);
+  background: var(--orb, radial-gradient(circle at 30% 30%, #fff, #e89a3c 45%, #e86a45));
+  border: 2px solid var(--pane-border, rgba(255, 255, 255, 0.45));
+  box-shadow: var(--orb-shadow, 0 12px 28px rgba(0, 0, 0, 0.25));
 }
 
 .shape-pane {
-  width: 140px;
-  height: 100px;
-  left: 42%;
-  top: 22%;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--card-shadow);
+  width: 150px;
+  height: 104px;
+  border-radius: var(--radius, 16px);
+  background: color-mix(in srgb, var(--accent, #e89a3c) 28%, transparent);
+  border: 2px solid var(--border-strong, rgba(255, 255, 255, 0.4));
+  box-shadow: var(--card-shadow, 0 12px 30px rgba(0, 0, 0, 0.2));
   backdrop-filter: blur(var(--glass-blur, 16px));
   -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
 }
 
 .shape-ring {
-  width: 100px;
-  height: 100px;
-  left: 68%;
-  top: 38%;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
-  border: 14px solid var(--accent);
-  background: transparent;
-  box-shadow: var(--accent-shadow, var(--btn-shadow));
-  opacity: 0.9;
+  border: 16px solid var(--accent, #3b82f6);
+  background: color-mix(in srgb, var(--accent, #3b82f6) 12%, transparent);
+  box-shadow: var(--accent-shadow, 0 8px 24px rgba(0, 0, 0, 0.2));
+  box-sizing: border-box;
 }
 
 .shape-blob {
-  width: 110px;
-  height: 110px;
-  left: 28%;
-  top: 55%;
+  width: 118px;
+  height: 118px;
   border-radius: 60% 40% 55% 45%;
-  background: var(--pane-2, var(--accent));
-  border: 1px solid var(--pane-border, var(--border));
-  box-shadow: var(--pane-shadow, var(--card-shadow));
-  backdrop-filter: var(--pane-blur, none);
-  -webkit-backdrop-filter: var(--pane-blur, none);
+  background: var(--pane-2, color-mix(in srgb, var(--accent, #7ed4c8) 55%, #fff));
+  border: 2px solid var(--pane-border, var(--border-strong, #ccc));
+  box-shadow: var(--pane-shadow, var(--card-shadow, 0 10px 24px rgba(0, 0, 0, 0.2)));
 }
 
 [data-feel="molten"] .play-obj,
