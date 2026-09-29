@@ -1,50 +1,53 @@
-/* ——— Theme skins ——— */
+/* â€”â€”â€” Theme skins â€”â€”â€” */
 
 /* ========== THEME: Molten Glass ========== */
 [data-theme="molten-glass"] {
   --font: "Outfit", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
-  --bg: #f3e6d4;
-  --surface: rgba(255, 248, 238, 0.42);
-  --text: #2a221c;
-  --muted: rgba(42, 34, 28, 0.68);
-  --border: rgba(255, 255, 255, 0.45);
-  --border-strong: rgba(255, 255, 255, 0.55);
-  --accent: linear-gradient(135deg, #e89a3c, #e86a45);
-  --accent-fg: #2a221c;
-  --accent-border: rgba(255, 255, 255, 0.5);
-  --accent-soft: #e86a45;
-  --radius: 4px;
-  --radius-sm: 4px;
-  --radius-lg: 8px;
-  --btn-bg: rgba(255, 248, 238, 0.5);
-  --btn-fg: #2a221c;
-  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
-  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  --pane-1: linear-gradient(160deg, rgba(255, 235, 200, 0.85), rgba(232, 154, 60, 0.55));
-  --pane-2: linear-gradient(200deg, rgba(180, 235, 228, 0.8), rgba(77, 184, 176, 0.5));
-  --pane-3: linear-gradient(180deg, rgba(232, 106, 69, 0.65), rgba(240, 193, 90, 0.5));
-  --pane-border: rgba(255, 255, 255, 0.55);
-  --pane-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7), 0 20px 40px rgba(42, 34, 28, 0.08);
-  --pane-blur: blur(18px) saturate(1.3);
+  --bg: #1a1410;
+  --surface: rgba(255, 236, 210, 0.12);
+  --surface-2: rgba(255, 200, 140, 0.1);
+  --text: #f7e8d2;
+  --muted: rgba(247, 232, 210, 0.65);
+  --border: rgba(255, 255, 255, 0.22);
+  --border-strong: rgba(255, 255, 255, 0.35);
+  --accent: #e89a3c;
+  --accent-fg: #1a1410;
+  --accent-border: rgba(255, 255, 255, 0.35);
+  --accent-soft: #f0c15a;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 24px;
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-fg: #f7e8d2;
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --glass-blur: 28px;
+  --pane-1: rgba(255, 255, 255, 0.1);
+  --pane-2: rgba(255, 220, 180, 0.12);
+  --pane-3: rgba(126, 212, 200, 0.1);
+  --pane-border: rgba(255, 255, 255, 0.35);
+  --pane-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --pane-blur: blur(28px) saturate(1.5);
+  --pane-radius: 22px;
   --orb: radial-gradient(circle at 32% 28%, #fff8e8, #e89a3c 40%, #e86a45 70%, #4db8b0);
-  --orb-shadow: 0 10px 30px rgba(232, 106, 69, 0.35);
-  --input-bg: rgba(255, 255, 255, 0.35);
+  --orb-shadow: 0 10px 40px rgba(232, 106, 69, 0.45);
+  --input-bg: rgba(255, 255, 255, 0.08);
   --h1-weight: 700;
 }
 
 [data-theme="molten-glass"] .atmosphere {
   background:
-    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(232, 154, 60, 0.45), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 85% 10%, rgba(126, 212, 200, 0.4), transparent 50%),
-    radial-gradient(ellipse 60% 70% at 70% 80%, rgba(232, 106, 69, 0.28), transparent 55%),
-    linear-gradient(165deg, #f8ead8, #e8d4c0 40%, #d4ebe6);
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(232, 154, 60, 0.55), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 80% 20%, rgba(126, 212, 200, 0.4), transparent 50%),
+    radial-gradient(ellipse 50% 60% at 70% 80%, rgba(232, 106, 69, 0.35), transparent 55%),
+    linear-gradient(165deg, #2a1c14, #1a1410 40%, #121a1a);
 }
 
 [data-theme="molten-glass"] .blob {
   display: block;
-  filter: blur(48px);
-  opacity: 0.65;
+  filter: blur(40px);
+  opacity: 0.7;
   border-radius: 60% 40% 55% 45%;
   animation: morph 14s ease-in-out infinite alternate;
 }
@@ -79,9 +82,77 @@
   background: radial-gradient(circle, #e86a45, #f6c9a8 55%, transparent 75%);
 }
 
+[data-theme="molten-glass"] .chrome-bg {
+  display: block;
+}
+
 [data-theme="molten-glass"] .ui-btn-primary {
-  background: linear-gradient(145deg, rgba(255, 220, 170, 0.7), rgba(232, 154, 60, 0.55), rgba(126, 212, 200, 0.4));
-  color: #2a221c;
+  background: linear-gradient(145deg, rgba(255, 220, 170, 0.55), rgba(232, 154, 60, 0.7));
+  color: #1a1410;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="molten-glass"] .visual-pane {
+  border-radius: 22px !important;
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+}
+
+/* ========== THEME: Glassmorphism (classic) ========== */
+[data-theme="glassmorphism"] {
+  --font: "Outfit", sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --bg: #0c0c0e;
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-2: rgba(255, 255, 255, 0.05);
+  --text: #f2f4f8;
+  --muted: rgba(242, 244, 248, 0.6);
+  --border: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.28);
+  --accent: #c8d0dc;
+  --accent-fg: #0c0c0e;
+  --accent-soft: #aeb8c8;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --radius-lg: 28px;
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-fg: #f2f4f8;
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --card-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  --glass-blur: 32px;
+  --pane-1: rgba(255, 255, 255, 0.08);
+  --pane-2: rgba(255, 255, 255, 0.06);
+  --pane-3: rgba(255, 255, 255, 0.1);
+  --pane-border: rgba(255, 255, 255, 0.28);
+  --pane-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --pane-blur: blur(32px) saturate(1.4);
+  --pane-radius: 24px;
+  --orb: radial-gradient(circle at 30% 28%, #fff, #9aa7b8 45%, #3a4048);
+  --orb-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --h1-weight: 700;
+}
+
+[data-theme="glassmorphism"] .atmosphere {
+  background:
+    radial-gradient(ellipse at 30% 40%, #2a2e36 0%, transparent 45%),
+    radial-gradient(ellipse at 75% 30%, #3a424c 0%, transparent 40%),
+    linear-gradient(160deg, #121418, #0c0c0e 50%, #10141a);
+}
+
+[data-theme="glassmorphism"] .chrome-bg {
+  display: block;
+}
+
+[data-theme="glassmorphism"] .ui-btn-primary {
+  background: rgba(255, 255, 255, 0.85);
+  color: #0c0c0e;
+}
+
+[data-theme="glassmorphism"] .visual-pane {
+  border-radius: 24px !important;
+  backdrop-filter: blur(32px) saturate(1.4);
+  -webkit-backdrop-filter: blur(32px) saturate(1.4);
 }
 
 /* ========== THEME: Neumorphism ========== */
@@ -243,6 +314,7 @@
 
 /* ========== THEME: Frutiger Aero ========== */
 [data-theme="frutiger-aero"] {
+  --glass-blur: 18px;
   --font: "Outfit", sans-serif;
   --font-display: "Outfit", sans-serif;
   --bg: #c8e8f8;
@@ -465,6 +537,7 @@
 
 /* ========== THEME: Gradient Mesh ========== */
 [data-theme="gradient-mesh"] {
+  --glass-blur: 20px;
   --font: "Syne", sans-serif;
   --font-display: "Syne", sans-serif;
   --bg: #1a1025;
@@ -587,6 +660,7 @@
 
 /* ========== MIX: Molten + Dark Tech + Luxury Minimal ========== */
 [data-theme="molten-dark-luxury"] {
+  --glass-blur: 22px;
   --font: "Outfit", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
   --bg: #0c0b0a;
@@ -772,6 +846,7 @@
 
 /* ========== MIX: Aero Glass ========== */
 [data-theme="aero-glass"] {
+  --glass-blur: 24px;
   --font: "Outfit", sans-serif;
   --font-display: "Outfit", sans-serif;
   --bg: #8ec8e8;
@@ -1183,6 +1258,7 @@
 
 /* ========== MIX: Vapor Glass ========== */
 [data-theme="vapor-glass"] {
+  --glass-blur: 28px;
   --font: "Outfit", sans-serif;
   --font-display: "Syne", sans-serif;
   --bg: #0e0618;
@@ -1335,3 +1411,283 @@
 [data-theme="swiss-brutal"] .ui-btn:hover {
   box-shadow: 7px 7px 0 #111;
 }
+
+/* ========== THEME: Memphis ========== */
+[data-theme="memphis"] {
+  --font: "Space Grotesk", sans-serif;
+  --font-display: "Archivo Black", Impact, sans-serif;
+  --bg: #fff8e7;
+  --surface: #ffffff;
+  --surface-2: #ffe66d;
+  --text: #1a1a1a;
+  --muted: #555;
+  --border: #1a1a1a;
+  --border-strong: #1a1a1a;
+  --accent: #ff6b6b;
+  --accent-fg: #fff;
+  --accent-soft: #4ecdc4;
+  --radius: 0;
+  --radius-sm: 0;
+  --radius-lg: 0;
+  --btn-bg: #4ecdc4;
+  --btn-fg: #1a1a1a;
+  --btn-shadow: 4px 4px 0 #1a1a1a;
+  --accent-shadow: 4px 4px 0 #1a1a1a;
+  --card-shadow: 5px 5px 0 #1a1a1a;
+  --pane-1: #ff6b6b;
+  --pane-2: #ffe66d;
+  --pane-3: #4ecdc4;
+  --pane-border: #1a1a1a;
+  --pane-shadow: 6px 6px 0 #1a1a1a;
+  --pane-radius: 0;
+  --orb: conic-gradient(#ff6b6b, #ffe66d, #4ecdc4, #ff6b6b);
+  --orb-shadow: 5px 5px 0 #1a1a1a;
+  --input-bg: #fff;
+  --h1-weight: 400;
+  --btn-hover-y: translate(-2px, -2px);
+}
+
+[data-theme="memphis"] .atmosphere {
+  background:
+    repeating-linear-gradient(45deg, #fff8e7 0 18px, #ffe8a3 18px 36px),
+    #fff8e7;
+}
+
+[data-theme="memphis"] .visual-pane { border-radius: 0 !important; border-width: 3px; }
+[data-theme="memphis"] .ui-card,
+[data-theme="memphis"] .bento-cell,
+[data-theme="memphis"] .stat,
+[data-theme="memphis"] .ui-panel,
+[data-theme="memphis"] .ui-btn { border-width: 2px; }
+[data-theme="memphis"] .feature-grid .ui-card:nth-child(2) { background: #ffe66d; }
+[data-theme="memphis"] .feature-grid .ui-card:nth-child(3) { background: #4ecdc4; }
+[data-theme="memphis"] .ui-btn-primary { background: #ff6b6b; color: #fff; }
+
+/* ========== THEME: Cyberpunk ========== */
+[data-theme="cyberpunk"] {
+  --font: "JetBrains Mono", monospace;
+  --font-display: "Syne", sans-serif;
+  --bg: #050010;
+  --surface: rgba(255, 42, 109, 0.08);
+  --surface-2: rgba(5, 217, 232, 0.08);
+  --text: #f5e9ff;
+  --muted: rgba(245, 233, 255, 0.55);
+  --border: rgba(5, 217, 232, 0.4);
+  --border-strong: rgba(255, 42, 109, 0.55);
+  --accent: #ff2a6d;
+  --accent-fg: #050010;
+  --accent-soft: #05d9e8;
+  --radius: 4px;
+  --radius-sm: 2px;
+  --radius-lg: 8px;
+  --btn-bg: rgba(5, 217, 232, 0.12);
+  --btn-fg: #05d9e8;
+  --btn-shadow: 0 0 16px rgba(5, 217, 232, 0.25);
+  --accent-shadow: 0 0 24px rgba(255, 42, 109, 0.4);
+  --card-shadow: 0 0 30px rgba(255, 42, 109, 0.12);
+  --glass-blur: 20px;
+  --pane-1: rgba(255, 42, 109, 0.15);
+  --pane-2: rgba(5, 217, 232, 0.12);
+  --pane-3: rgba(210, 50, 255, 0.12);
+  --pane-border: rgba(5, 217, 232, 0.45);
+  --pane-shadow: 0 0 40px rgba(255, 42, 109, 0.2);
+  --pane-blur: blur(18px);
+  --pane-radius: 6px;
+  --orb: radial-gradient(circle, #ff2a6d, #05d9e8 70%);
+  --orb-shadow: 0 0 40px rgba(255, 42, 109, 0.5);
+  --input-bg: rgba(0, 0, 0, 0.4);
+  --h1-weight: 800;
+}
+
+[data-theme="cyberpunk"] .atmosphere {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(255, 42, 109, 0.35), transparent 45%),
+    radial-gradient(ellipse at 20% 70%, rgba(5, 217, 232, 0.25), transparent 45%),
+    linear-gradient(180deg, #0a0018, #050010);
+}
+
+[data-theme="cyberpunk"] .grid-fx {
+  display: block;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(5, 217, 232, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 42, 109, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+[data-theme="cyberpunk"] .ui-btn-primary {
+  background: #ff2a6d;
+  color: #fff;
+  border-color: #ff2a6d;
+}
+
+[data-theme="cyberpunk"] .ui-hero h1 {
+  text-shadow: 0 0 24px rgba(255, 42, 109, 0.5);
+}
+
+/* ========== MIX: Molten Clay ========== */
+[data-theme="molten-clay"] {
+  --font: "Fredoka", "Outfit", sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --bg: #2a1814;
+  --surface: rgba(255, 200, 170, 0.14);
+  --text: #ffe8d8;
+  --muted: rgba(255, 232, 216, 0.6);
+  --border: rgba(255, 255, 255, 0.22);
+  --border-strong: rgba(255, 200, 170, 0.4);
+  --accent: #ff8f6b;
+  --accent-fg: #2a1814;
+  --accent-soft: #ffb08a;
+  --radius: 28px;
+  --radius-sm: 20px;
+  --radius-lg: 36px;
+  --btn-bg: rgba(255, 180, 150, 0.2);
+  --btn-fg: #ffe8d8;
+  --btn-shadow: 0 10px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  --glass-blur: 24px;
+  --pane-1: rgba(255, 180, 150, 0.18);
+  --pane-2: rgba(255, 143, 184, 0.15);
+  --pane-3: rgba(126, 212, 200, 0.12);
+  --pane-border: rgba(255, 255, 255, 0.3);
+  --pane-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  --pane-blur: blur(24px);
+  --pane-radius: 40%;
+  --orb: radial-gradient(circle at 35% 30%, #fff, #ff8f6b 50%, #ff8fb8);
+  --orb-shadow: 0 12px 30px rgba(255, 143, 107, 0.4);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --h1-weight: 600;
+}
+
+[data-theme="molten-clay"] .atmosphere {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255, 143, 107, 0.45), transparent 40%),
+    radial-gradient(circle at 75% 40%, rgba(255, 143, 184, 0.3), transparent 40%),
+    #2a1814;
+}
+
+[data-theme="molten-clay"] .ui-btn-primary {
+  background: #ff8f6b;
+  color: #2a1814;
+}
+
+/* ========== MIX: Cyber Glass ========== */
+[data-theme="cyber-glass"] {
+  --font: "Outfit", sans-serif;
+  --font-display: "Syne", sans-serif;
+  --bg: #04000c;
+  --surface: rgba(255, 255, 255, 0.07);
+  --text: #f0e8ff;
+  --muted: rgba(240, 232, 255, 0.55);
+  --border: rgba(5, 217, 232, 0.3);
+  --border-strong: rgba(255, 42, 109, 0.4);
+  --accent: #05d9e8;
+  --accent-fg: #04000c;
+  --accent-soft: #ff2a6d;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 24px;
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-fg: #f0e8ff;
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --glass-blur: 28px;
+  --pane-1: rgba(255, 42, 109, 0.12);
+  --pane-2: rgba(5, 217, 232, 0.1);
+  --pane-3: rgba(255, 255, 255, 0.08);
+  --pane-border: rgba(255, 255, 255, 0.25);
+  --pane-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --pane-blur: blur(28px) saturate(1.5);
+  --pane-radius: 20px;
+  --orb: radial-gradient(circle at 35% 30%, #fff, #ff2a6d 40%, #05d9e8);
+  --orb-shadow: 0 0 50px rgba(255, 42, 109, 0.45);
+  --input-bg: rgba(0, 0, 0, 0.35);
+  --h1-weight: 700;
+}
+
+[data-theme="cyber-glass"] .atmosphere {
+  background:
+    radial-gradient(ellipse at 70% 25%, rgba(255, 42, 109, 0.35), transparent 45%),
+    radial-gradient(ellipse at 25% 70%, rgba(5, 217, 232, 0.25), transparent 45%),
+    #04000c;
+}
+
+[data-theme="cyber-glass"] .chrome-bg { display: block; }
+
+[data-theme="cyber-glass"] .ui-btn-primary {
+  background: linear-gradient(135deg, #ff2a6d, #05d9e8);
+  color: #fff;
+  border: none;
+}
+
+/* ========== MIX: Memphis Brutal ========== */
+[data-theme="memphis-brutal"] {
+  --font: "Space Grotesk", sans-serif;
+  --font-display: "Archivo Black", Impact, sans-serif;
+  --bg: #111;
+  --surface: #ffe66d;
+  --surface-2: #ff6b6b;
+  --text: #111;
+  --muted: #333;
+  --border: #111;
+  --border-strong: #111;
+  --accent: #ff6b6b;
+  --accent-fg: #fff;
+  --accent-soft: #4ecdc4;
+  --radius: 0;
+  --radius-sm: 0;
+  --radius-lg: 0;
+  --btn-bg: #4ecdc4;
+  --btn-fg: #111;
+  --btn-shadow: 5px 5px 0 #fff;
+  --accent-shadow: 5px 5px 0 #fff;
+  --card-shadow: 6px 6px 0 #fff;
+  --pane-1: #ff6b6b;
+  --pane-2: #ffe66d;
+  --pane-3: #4ecdc4;
+  --pane-border: #fff;
+  --pane-shadow: 8px 8px 0 #fff;
+  --pane-radius: 0;
+  --orb: #ff6b6b;
+  --orb-shadow: 6px 6px 0 #fff;
+  --input-bg: #fff;
+  --h1-weight: 400;
+  --btn-hover-y: translate(-2px, -2px);
+}
+
+[data-theme="memphis-brutal"] .atmosphere {
+  background:
+    repeating-linear-gradient(-15deg, #111 0 24px, #1a1a1a 24px 48px);
+}
+
+[data-theme="memphis-brutal"] .ui-hero h1,
+[data-theme="memphis-brutal"] .ui-lede,
+[data-theme="memphis-brutal"] .ui-eyebrow,
+[data-theme="memphis-brutal"] .ui-section-head h2,
+[data-theme="memphis-brutal"] .ui-section-head p,
+[data-theme="memphis-brutal"] .ui-logo,
+[data-theme="memphis-brutal"] .ui-links,
+[data-theme="memphis-brutal"] .ui-footer {
+  color: #ffe66d;
+}
+
+[data-theme="memphis-brutal"] .ui-lede,
+[data-theme="memphis-brutal"] .ui-section-head p,
+[data-theme="memphis-brutal"] .ui-links,
+[data-theme="memphis-brutal"] .ui-footer {
+  color: rgba(255, 230, 109, 0.7);
+}
+
+[data-theme="memphis-brutal"] .visual-pane { border-radius: 0 !important; border-width: 3px; }
+[data-theme="memphis-brutal"] .ui-card,
+[data-theme="memphis-brutal"] .bento-cell,
+[data-theme="memphis-brutal"] .stat,
+[data-theme="memphis-brutal"] .ui-panel,
+[data-theme="memphis-brutal"] .ui-btn { border-width: 3px; }
+[data-theme="memphis-brutal"] .feature-grid .ui-card:nth-child(2) { background: #ff6b6b; color: #fff; }
+[data-theme="memphis-brutal"] .feature-grid .ui-card:nth-child(3) { background: #4ecdc4; }
+[data-theme="memphis-brutal"] .ui-btn-primary { background: #ff6b6b; color: #fff; }
+
+[data-theme="vapor-glass"] .chrome-bg { display: block; }
+
+[data-theme="aero-glass"] .chrome-bg { display: block; }

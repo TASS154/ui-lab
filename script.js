@@ -24,6 +24,7 @@
   const picker = document.getElementById("picker");
   const backdrop = document.getElementById("picker-backdrop");
   const pickerOpenBtn = document.getElementById("picker-open");
+  const toast = document.getElementById("toast");
 
   const pures = THEMES.filter((t) => t.group === "pure");
   const mixes = THEMES.filter((t) => t.group === "mix");
@@ -41,6 +42,7 @@
     ".ui-stats .stat",
     ".ui-section-head",
     ".ui-card",
+    ".ui-play",
     ".bento-cell",
     ".ui-panel",
     ".ui-footer",
@@ -56,6 +58,7 @@
   let runId = 0;
   let activeThemeId = null;
   let pendingThemeId = null;
+  let toastTimer = null;
 
   const easeInOut = (t) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -73,25 +76,36 @@
     return THEMES.find((t) => t.id === id) || THEMES[0];
   }
 
+  function showToast(message) {
+    toast.textContent = message;
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.hidden = true;
+    }, 2800);
+  }
+
   function updateChrome(theme) {
     themeLabel.textContent = theme.name;
     themeTags.textContent = theme.tags;
     document.querySelectorAll(".swatch").forEach((el) => {
       const selected = el.dataset.id === theme.id;
       el.setAttribute("aria-selected", selected ? "true" : "false");
-      if (selected) el.classList.add("is-active");
-      else el.classList.remove("is-active");
+      el.classList.toggle("is-active", selected);
     });
   }
 
   function commitTheme(theme) {
     html.setAttribute("data-theme", theme.id);
+    html.setAttribute("data-glass", theme.glass ? "1" : "0");
+    html.setAttribute("data-feel", theme.feel || "rigid");
     footerTheme.textContent = theme.name;
     heroEyebrow.textContent = theme.eyebrow;
     heroTitle.textContent = theme.title;
     heroLede.textContent = theme.lede;
     activeThemeId = theme.id;
     themeLive.textContent = `Tema ativo: ${theme.name}. ${theme.tags}`;
+    window.dispatchEvent(new CustomEvent("uilab:theme", { detail: theme }));
   }
 
   function tweenMount(target, myRun) {
@@ -182,6 +196,23 @@
     runCycle(myRun);
   }
 
+  function randomTheme() {
+    const current = pendingThemeId || activeThemeId;
+    let next = THEMES[Math.floor(Math.random() * THEMES.length)];
+    let guard = 0;
+    while (next.id === current && guard < 8) {
+      next = THEMES[Math.floor(Math.random() * THEMES.length)];
+      guard += 1;
+    }
+    requestTheme(next.id);
+    showToast(`Surpresa: ${next.name}`);
+  }
+
+  function scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  }
+
   function makeSwatch(theme) {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -223,11 +254,11 @@
 
   themeFilter.addEventListener("input", () => applyFilter(themeFilter.value));
 
-  function openPicker() {
+  function openPicker(focusFilter = true) {
     picker.classList.add("is-open");
     backdrop.hidden = false;
     pickerOpenBtn.setAttribute("aria-expanded", "true");
-    themeFilter.focus();
+    if (focusFilter) themeFilter.focus();
   }
 
   function closePicker() {
@@ -236,7 +267,7 @@
     pickerOpenBtn.setAttribute("aria-expanded", "false");
   }
 
-  pickerOpenBtn.addEventListener("click", openPicker);
+  pickerOpenBtn.addEventListener("click", () => openPicker());
   document.getElementById("picker-close").addEventListener("click", closePicker);
   backdrop.addEventListener("click", closePicker);
 
@@ -247,23 +278,50 @@
     }
   });
 
-  document.getElementById("random-theme").addEventListener("click", () => {
-    const current = pendingThemeId || activeThemeId;
-    let next = THEMES[Math.floor(Math.random() * THEMES.length)];
-    let guard = 0;
-    while (next.id === current && guard < 8) {
-      next = THEMES[Math.floor(Math.random() * THEMES.length)];
-      guard += 1;
-    }
-    requestTheme(next.id);
+  document.getElementById("random-theme").addEventListener("click", randomTheme);
+  document.getElementById("btn-styles").addEventListener("click", () => openPicker());
+  document.getElementById("btn-start").addEventListener("click", () => {
+    scrollToId("play");
+    showToast("Playground tátil — arraste e clique nos objetos.");
+  });
+  document.getElementById("btn-docs").addEventListener("click", () => {
+    scrollToId("features");
+    showToast(`${pures.length} puros · ${mixes.length} mesclas · filtre no painel Estilos.`);
+  });
+  document.getElementById("stat-go-pures").addEventListener("click", () => {
+    themeFilter.value = "";
+    applyFilter("");
+    openPicker();
+    pureList.querySelector(".swatch")?.focus();
+  });
+  document.getElementById("stat-go-mixes").addEventListener("click", () => {
+    themeFilter.value = "";
+    applyFilter("");
+    openPicker();
+    mixList.querySelector(".swatch")?.focus();
+  });
+  document.getElementById("stat-go-random").addEventListener("click", randomTheme);
+
+  document.querySelectorAll(".ui-card-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.action === "surprise") {
+        randomTheme();
+        return;
+      }
+      if (btn.dataset.jump) scrollToId(btn.dataset.jump);
+    });
   });
 
   document.getElementById("demo-form").addEventListener("submit", (e) => {
     e.preventDefault();
-    const ok = document.getElementById("form-ok");
-    ok.hidden = false;
+    const data = new FormData(e.target);
+    const name = String(data.get("name") || "").trim();
+    document.getElementById("form-ok").hidden = false;
+    showToast(`Olá, ${name || "visitante"} — formulário ok no tema ${findTheme(activeThemeId).name}.`);
     e.target.reset();
   });
+
+  window.UILab = { requestTheme, randomTheme, showToast, findTheme, get activeThemeId() { return activeThemeId; } };
 
   let saved = "molten-glass";
   try {

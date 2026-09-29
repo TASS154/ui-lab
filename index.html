@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="molten-glass">
+<html lang="pt-BR" data-theme="molten-glass" data-glass="1" data-feel="molten">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,17 +57,21 @@
           <div class="grid-fx"></div>
           <div class="aero-shine"></div>
           <div class="scanlines"></div>
+          <div class="chrome-bg chrome-bg-1"></div>
+          <div class="chrome-bg chrome-bg-2"></div>
+          <div class="chrome-bg chrome-bg-3"></div>
         </div>
 
         <main class="preview" id="preview">
           <nav class="ui-nav">
-            <a class="ui-logo" href="#hero">Studio</a>
+            <a class="ui-logo" href="#hero" id="nav-logo">Studio</a>
             <div class="ui-links">
               <a href="#features">Features</a>
+              <a href="#play">Play</a>
               <a href="#bento">Layout</a>
               <a href="#cta">Contato</a>
             </div>
-            <button type="button" class="ui-btn ui-btn-sm">Entrar</button>
+            <button type="button" class="ui-btn ui-btn-sm" id="btn-styles">Estilos</button>
           </nav>
 
           <section class="ui-hero" id="hero">
@@ -76,12 +80,15 @@
               <h1 id="hero-title">Uma interface, muitos temperamentos.</h1>
               <p class="ui-lede" id="hero-lede">Troque o seletor e veja tipografia, profundidade, cor e ritmo mudarem.</p>
               <div class="ui-actions">
-                <button type="button" class="ui-btn ui-btn-primary">Começar agora</button>
-                <button type="button" class="ui-btn ui-btn-ghost">Ver docs</button>
+                <button type="button" class="ui-btn ui-btn-primary" id="btn-start">Começar agora</button>
+                <button type="button" class="ui-btn ui-btn-ghost" id="btn-docs">Ver docs</button>
               </div>
             </div>
             <div class="ui-hero-visual" aria-hidden="true">
               <div class="visual-stack">
+                <div class="chrome-sphere cs-1"></div>
+                <div class="chrome-sphere cs-2"></div>
+                <div class="chrome-ring"></div>
                 <div class="visual-pane p1"></div>
                 <div class="visual-pane p2"></div>
                 <div class="visual-pane p3"></div>
@@ -91,9 +98,15 @@
           </section>
 
           <section class="ui-stats" aria-label="Inventário de estilos">
-            <div class="stat"><strong id="stat-pures">—</strong><span>puros</span></div>
-            <div class="stat"><strong id="stat-mixes">—</strong><span>mesclas</span></div>
-            <div class="stat"><strong id="stat-total">—</strong><span>total</span></div>
+            <button type="button" class="stat" id="stat-go-pures" title="Abrir lista de puros">
+              <strong id="stat-pures">—</strong><span>puros</span>
+            </button>
+            <button type="button" class="stat" id="stat-go-mixes" title="Abrir lista de mesclas">
+              <strong id="stat-mixes">—</strong><span>mesclas</span>
+            </button>
+            <button type="button" class="stat" id="stat-go-random" title="Tema aleatório">
+              <strong id="stat-total">—</strong><span>total</span>
+            </button>
           </section>
 
           <section class="ui-features" id="features">
@@ -102,21 +115,39 @@
               <p>Cards, botões e formulários herdam o DNA do tema ativo.</p>
             </header>
             <div class="feature-grid">
-              <article class="ui-card">
+              <button type="button" class="ui-card ui-card-btn" data-jump="play">
                 <div class="ui-card-icon" aria-hidden="true">◐</div>
                 <h3>Profundidade</h3>
-                <p>Sombras, blur e relevo mudam conforme o estilo escolhido.</p>
-              </article>
-              <article class="ui-card">
+                <p>Sombras, blur e relevo mudam conforme o estilo — teste no playground.</p>
+              </button>
+              <button type="button" class="ui-card ui-card-btn" data-jump="bento">
                 <div class="ui-card-icon" aria-hidden="true">◈</div>
                 <h3>Tipografia</h3>
                 <p>Cada tema traz sua própria voz tipográfica e escala.</p>
-              </article>
-              <article class="ui-card">
+              </button>
+              <button type="button" class="ui-card ui-card-btn" data-action="surprise">
                 <div class="ui-card-icon" aria-hidden="true">◉</div>
                 <h3>Cor & luz</h3>
-                <p>Paletas quentes, frias, flat ou metálicas sob demanda.</p>
-              </article>
+                <p>Clique para surpresa de paleta — troca o tema ao vivo.</p>
+              </button>
+            </div>
+          </section>
+
+          <section class="ui-play" id="play">
+            <header class="ui-section-head">
+              <h2>Playground tátil</h2>
+              <p>Arraste, clique e passe o mouse — a física muda com o estilo (vidro mole, snap brutal, mola neo…).</p>
+            </header>
+            <div class="play-arena" id="play-arena">
+              <div class="play-hint" id="play-hint">Arraste os objetos · clique para pulsar</div>
+              <div class="play-obj shape-orb" data-label="Orb" tabindex="0" role="button" aria-label="Orb interativo"></div>
+              <div class="play-obj shape-pane" data-label="Pane" tabindex="0" role="button" aria-label="Painel interativo"></div>
+              <div class="play-obj shape-ring" data-label="Ring" tabindex="0" role="button" aria-label="Anel interativo"></div>
+              <div class="play-obj shape-blob" data-label="Blob" tabindex="0" role="button" aria-label="Blob interativo"></div>
+            </div>
+            <div class="play-actions">
+              <button type="button" class="ui-btn" id="btn-reset-play">Resetar posições</button>
+              <button type="button" class="ui-btn ui-btn-ghost" id="btn-jiggle">Sacudir</button>
             </div>
           </section>
 
@@ -157,17 +188,19 @@
               <form class="ui-form" id="demo-form">
                 <label>
                   Nome
-                  <input type="text" name="name" placeholder="Seu nome" autocomplete="name" />
+                  <input type="text" name="name" placeholder="Seu nome" autocomplete="name" required />
                 </label>
                 <label>
                   E-mail
-                  <input type="email" name="email" placeholder="voce@studio.dev" autocomplete="email" />
+                  <input type="email" name="email" placeholder="voce@studio.dev" autocomplete="email" required />
                 </label>
                 <button type="submit" class="ui-btn ui-btn-primary">Enviar</button>
               </form>
               <p class="form-ok" id="form-ok" hidden>Recebido — tema aplicado com sucesso.</p>
             </div>
           </section>
+
+          <div class="toast" id="toast" hidden role="status"></div>
 
           <footer class="ui-footer">
             <span>UI Lab</span>
@@ -181,5 +214,6 @@
   <div class="picker-backdrop" id="picker-backdrop" hidden></div>
   <script src="themes.js"></script>
   <script src="script.js"></script>
+  <script src="interactive.js"></script>
 </body>
 </html>

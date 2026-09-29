@@ -322,9 +322,115 @@ input {
 .blob,
 .grid-fx,
 .aero-shine,
-.scanlines {
+.scanlines,
+.chrome-bg {
   display: none;
   position: absolute;
+}
+
+.chrome-bg {
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ffffff, #8a949e 40%, #2a3038 70%, #0a0c10);
+  box-shadow: inset -8px -12px 24px rgba(0, 0, 0, 0.5), 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.chrome-bg-1 {
+  width: 220px;
+  height: 220px;
+  top: 12%;
+  right: 8%;
+  opacity: 0.85;
+}
+
+.chrome-bg-2 {
+  width: 140px;
+  height: 140px;
+  bottom: 18%;
+  left: 12%;
+  opacity: 0.7;
+}
+
+.chrome-bg-3 {
+  width: 90px;
+  height: 90px;
+  top: 48%;
+  left: 42%;
+  opacity: 0.55;
+}
+
+/* Glass surfaces — real frosted panels */
+[data-glass="1"] .ui-card,
+[data-glass="1"] .stat,
+[data-glass="1"] .bento-cell,
+[data-glass="1"] .ui-panel,
+[data-glass="1"] .ui-nav,
+[data-glass="1"] .play-arena {
+  backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.35);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(1.35);
+  background: var(--surface);
+}
+
+[data-glass="1"] .ui-btn {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-glass="1"] .visual-pane {
+  backdrop-filter: var(--pane-blur, blur(24px) saturate(1.4));
+  -webkit-backdrop-filter: var(--pane-blur, blur(24px) saturate(1.4));
+}
+
+.chrome-sphere {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 28%, #fff, #a8b0bc 42%, #3a4048 75%, #121418);
+  box-shadow: inset -6px -10px 18px rgba(0, 0, 0, 0.45), 0 12px 28px rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+
+.chrome-sphere.cs-1 {
+  width: 110px;
+  height: 110px;
+  top: 18%;
+  right: 12%;
+}
+
+.chrome-sphere.cs-2 {
+  width: 70px;
+  height: 70px;
+  bottom: 22%;
+  left: 10%;
+}
+
+.chrome-ring {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: 28%;
+  left: 22%;
+  border-radius: 50%;
+  border: 18px solid transparent;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 40%) padding-box,
+    conic-gradient(from 200deg, #c8d0d8, #4a5058, #e8ecf0, #2a3038, #c8d0d8) border-box;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  z-index: 0;
+  transform: rotateX(58deg) rotateZ(-20deg);
+  opacity: 0.9;
+}
+
+.visual-pane {
+  z-index: 2;
+}
+
+.visual-orb {
+  z-index: 3;
+}
+
+[data-glass="0"] .chrome-sphere,
+[data-glass="0"] .chrome-ring,
+[data-glass="0"] .chrome-bg {
+  display: none !important;
 }
 
 .preview {
@@ -517,6 +623,175 @@ input {
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
   text-align: center;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ui-card-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ui-card-btn:hover,
+.stat:hover {
+  transform: translateY(-2px);
+}
+
+/* Playground */
+.ui-play {
+  margin-bottom: 3.5rem;
+}
+
+.play-arena {
+  position: relative;
+  height: min(420px, 70vw);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, var(--radius));
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+.play-hint {
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  z-index: 1;
+  font-size: 0.75rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.play-obj {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+  outline: none;
+}
+
+.play-obj:active,
+.play-obj.is-dragging {
+  cursor: grabbing;
+  z-index: 5;
+}
+
+.play-obj::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  bottom: -1.4rem;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.play-obj:hover::after,
+.play-obj:focus-visible::after {
+  opacity: 1;
+}
+
+.shape-orb {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  left: 12%;
+  top: 28%;
+  background: var(--orb);
+  border: 1px solid var(--pane-border);
+  box-shadow: var(--orb-shadow);
+}
+
+.shape-pane {
+  width: 140px;
+  height: 100px;
+  left: 42%;
+  top: 22%;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(var(--glass-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+}
+
+.shape-ring {
+  width: 100px;
+  height: 100px;
+  left: 68%;
+  top: 38%;
+  border-radius: 50%;
+  border: 14px solid var(--accent);
+  background: transparent;
+  box-shadow: var(--accent-shadow, var(--btn-shadow));
+  opacity: 0.9;
+}
+
+.shape-blob {
+  width: 110px;
+  height: 110px;
+  left: 28%;
+  top: 55%;
+  border-radius: 60% 40% 55% 45%;
+  background: var(--pane-2, var(--accent));
+  border: 1px solid var(--pane-border, var(--border));
+  box-shadow: var(--pane-shadow, var(--card-shadow));
+  backdrop-filter: var(--pane-blur, none);
+  -webkit-backdrop-filter: var(--pane-blur, none);
+}
+
+[data-feel="molten"] .play-obj,
+[data-feel="jelly"] .play-obj {
+  transition: box-shadow 0.25s ease;
+}
+
+[data-feel="molten"] .play-obj.is-hover,
+[data-feel="jelly"] .play-obj.is-hover {
+  filter: blur(0.2px);
+}
+
+[data-feel="snap"] .play-obj,
+[data-feel="rigid"] .play-obj {
+  transition: none;
+}
+
+.play-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  max-width: min(360px, calc(100vw - 2rem));
+  padding: 0.85rem 1.1rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: 0.88rem;
+}
+
+.toast[hidden] {
+  display: none;
 }
 
 .stat strong {
@@ -808,6 +1083,15 @@ input {
   .bento-tall {
     grid-column: 1 / -1;
     grid-row: auto;
+  }
+
+  .play-arena {
+    height: 340px;
+  }
+
+  .shape-ring {
+    left: 58%;
+    top: 48%;
   }
 }
 
